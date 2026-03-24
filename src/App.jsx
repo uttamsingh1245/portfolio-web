@@ -576,28 +576,18 @@ function App() {
             <div className="hero-avatar" style={{
                width: 'clamp(180px, 25vw, 320px)', height: 'clamp(180px, 25vw, 320px)',
                display: 'flex', alignItems: 'center', justifyContent: 'center',
-               /* Robot is now stationary but still blinks/greets on hover */
                position: 'relative',
                cursor: 'pointer',
                pointerEvents: 'auto',
-               filter: theme === 'dark' 
-                 ? 'drop-shadow(0 0 30px rgba(250,187,119,0.3))' 
-                 : 'drop-shadow(0 0 30px rgba(217,130,43,0.15))'
+               zIndex: '2'
             }}>
-              {/* Digital Eyes: perfectly aligned with the robot's face */}
+              {/* Separate Glow Layer to avoid isolation issues with mix-blend-mode */}
               <div style={{
-                position: 'absolute', top: '21.2%', left: '46%', width: 8, height: 8,
-                background: '#61dafb', borderRadius: '50%',
-                boxShadow: '0 0 10px #61dafb, 0 0 20px #61dafb',
-                animation: 'robot-blink 4s linear infinite',
-                zIndex: 2
-              }} />
-              <div style={{
-                position: 'absolute', top: '20.8%', left: '54.5%', width: 8, height: 8,
-                background: '#61dafb', borderRadius: '50%',
-                boxShadow: '0 0 10px #61dafb, 0 0 20px #61dafb',
-                animation: 'robot-blink 4s linear infinite',
-                zIndex: 2
+                position: 'absolute', top: '50%', left: '50%', transform: 'translate(-50%, -50%)',
+                width: '60%', height: '60%', borderRadius: '50%',
+                background: theme === 'dark' ? 'rgba(250,187,119,0.3)' : 'rgba(217,130,43,0.15)',
+                filter: 'blur(50px)',
+                zIndex: 0
               }} />
 
               {/* Animated speech bubble that appears on hover */}
@@ -618,20 +608,10 @@ function App() {
               }}>
                 👋 Hello! I'm Uttam's AI Assistant.
               </div>
-              <style>{`
-                .hero-avatar:hover .speech-bubble {
-                  opacity: 1 !important;
-                  transform: scale(1) translateY(0) !important;
-                }
-                @keyframes robot-blink {
-                  0%, 94%, 100% { transform: scaleY(1); }
-                  97%           { transform: scaleY(0.1); }
-                }
-              `}</style>
               
               <img 
-                src="/robot_transparent.png" 
-                alt="Friendly Waving Robot" 
+                src="/robot_head.png" 
+                alt="Friendly Robot Assistant" 
                 style={{ 
                   width: '100%', height: '100%', objectFit: 'contain',
                   mixBlendMode: theme === 'dark' ? 'screen' : 'normal',
